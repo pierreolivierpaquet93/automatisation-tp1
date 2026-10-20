@@ -2,9 +2,6 @@
 import datetime as dt
 
 class Item():
-	'''
-		NAME: piss
-	'''
 	def __init__(
 		self,
 		name:str,
