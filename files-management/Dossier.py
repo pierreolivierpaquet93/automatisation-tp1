@@ -23,6 +23,9 @@ class Dossier( Item ):
 		self.__size_max	= size_max
 		self.__size		= size
 
+	def getSize( self ) -> int:
+		return self.__size
+
 	def peutAjouter(
 		self,
 		file_size:int
@@ -36,12 +39,7 @@ class Dossier( Item ):
 		self,
 		name:str
 	) -> None:
-		src	= os.path.join( self.getPath, self.__name )
-		dst	= os.path.join( self.getPath, name )
-		os.rename(src=src, dst=dst)
+		src	= Path( self.getPath(), self.getName() )
+		dst	= Path( self.getPath(), name )
+		src.rename( dst )
 		self.setName( name )
-
-	def resize( self ) -> int:
-		path = os.path.join( self.getPath(), self.getName() )
-		size = Path( path ).stat().st_size
-		self.__size = size

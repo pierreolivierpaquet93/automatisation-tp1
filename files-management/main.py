@@ -12,24 +12,22 @@ FOLDERPATH='/tmp/'
 
 def test_directory_rename():
 
-	dirpath = os.path.join(FOLDERPATH,FOLDERNAME)
-	if Path( dirpath ).exists():
-		os.remove( dirpath )
-	os.makedirs(name=dirpath,exist_ok=True)
+	dirpath = Path(FOLDERPATH,FOLDERNAME)
+	dirpath.mkdir( parents=True, exist_ok=True)
 
 	new_dir = Dossier.Dossier(
 		absolute_path=FOLDERPATH,
 		name=FOLDERNAME,
 		creation=dt.datetime.fromtimestamp(
-			Path( os.path.join( FOLDERPATH,FOLDERNAME )).stat().st_ctime
+			Path( FOLDERPATH,FOLDERNAME ).stat().st_ctime
 		),
-		size=Path( os.path.join(FOLDERPATH,FOLDERNAME)).stat().st_size
+		size=Path( FOLDERPATH,FOLDERNAME ).stat().st_size
 	)
 	print(
-		f"FOLDER_NAME={new_dir._name}",
-		f"FOLDER_PATH={new_dir._path}",
-		f"FOLDER_SIZE={new_dir._size}",
-		f"CREATED={new_dir._creation}",
+		f"FOLDER_NAME={new_dir.getName()}",
+		f"FOLDER_PATH={new_dir.getPath()}",
+		f"FOLDER_SIZE={new_dir.getSize()}",
+		f"CREATED={new_dir.getCreation()}",
 		sep='\n'
 	)
 	new_dir.renommer('delete-renamed')

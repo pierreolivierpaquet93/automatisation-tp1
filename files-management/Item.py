@@ -30,3 +30,6 @@ class Item():
 
 	def getPath( self ) -> None:
 		return self.__path
+
+	def getCreation( self ) -> dt.datetime:
+		return self.__creation
