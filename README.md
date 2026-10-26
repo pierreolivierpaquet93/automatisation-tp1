@@ -10,4 +10,5 @@ Travail pratique 1
 - https://www.geeksforgeeks.org/python/python-os-path-join-method/
 - https://www.geeksforgeeks.org/python/python-check-if-a-file-or-directory-exists-2/
 - https://www.geeksforgeeks.org/python/delete-a-directory-or-file-using-python/
+- https://www.geeksforgeeks.org/python/__file__-a-special-variable-in-python/
 - 
