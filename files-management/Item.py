@@ -19,7 +19,7 @@ class Item():
 	) -> None: 
 		self.__name = name
 
-	def getName( self ) -> None:
+	def getName( self ) -> str:
 		return self.__name
 
 	def setPath(
@@ -28,7 +28,7 @@ class Item():
 	) -> None:
 		self.__path = absolute_path
 
-	def getPath( self ) -> None:
+	def getPath( self ) -> str:
 		return self.__path
 
 	def getCreation( self ) -> dt.datetime:
