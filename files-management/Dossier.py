@@ -26,6 +26,17 @@ class Dossier( Item ):
 	def getSize( self ) -> int:
 		return self.__size
 
+	def adjustSize(
+		self,
+		add:bool=True,
+		size=0
+	) -> int:
+		if add:
+			self.__size += size
+		else:
+			self.__size -= size
+		return self.__size
+
 	def peutAjouter(
 		self,
 		file_size:int
