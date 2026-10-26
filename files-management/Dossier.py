@@ -3,8 +3,7 @@ import	datetime	as		dt
 import	os
 from	pathlib		import	Path
 
-SIZE_MAX		= 3000
-SIZE_MAX_UNIT	= 'KB'
+SIZE_MAX	= 3000
 
 class Dossier( Item ):
 	def __init__(
@@ -20,7 +19,7 @@ class Dossier( Item ):
 			absolute_path,
 			creation,
 		)
-		self.__size_max	= size_max
+		self.__size_max	= size_max*1024 # KiloBytes*1024=bytes
 		self.__size		= size
 
 	def getSize( self ) -> int:

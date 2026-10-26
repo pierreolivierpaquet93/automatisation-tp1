@@ -12,7 +12,7 @@ def getItems() -> list[Item.Item]:
 	dir:Path = None
 	if not DIRECTORY:
 		script_root = Path( __file__ ).parent
-		dir = Path( script_root, '../TP1v2' )
+		dir = Path( script_root, '../TP1/TP1' )
 	else:
 		dir = Path( DIRECTORY )
 
@@ -41,17 +41,17 @@ def getItems() -> list[Item.Item]:
 				parent_directory	= r,
 				size				= file_path.stat().st_size
 			)
+			f.getParentDirectory().adjustSize( size=file_path.stat().st_size )
 			ListeItem.append( f )
- 
 	return ListeItem
 
 def main():
 	ListeItem = getItems()
 	for it in ListeItem:
 		if isinstance( it, Dossier.Dossier ):
-			print( f"DOSSIER --> {it.getName()}" )
+			print( f"DOSSIER --> {it.getName()} :: SIZE --> {it.getSize()}" )
 		elif isinstance( it, Fichier.Fichier ):
-			print( f"FICHIER --> {it.getName()}" )
+			print( f"FICHIER --> {it.getName()} :: SIZE --> {it.getSize()}" )
 
 if __name__ == '__main__':
 	main()

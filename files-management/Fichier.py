@@ -44,3 +44,9 @@ class Fichier( Item ):
 			copy = Path( self.__parent_directory.getPath(), new_name )
 			file.copy( target=copy )
 			self.__parent_directory.adjustSize( self.__size )
+
+	def getParentDirectory( self ) -> Dossier:
+		return self.__parent_directory
+
+	def getSize( self ) -> int:
+		return self.__size
