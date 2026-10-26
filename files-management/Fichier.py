@@ -34,5 +34,13 @@ class Fichier( Item ):
 			self.__parent_directory.adjustSize( size=self.__size )
 			self.setPath( dst.getPath() )
 
-	def Copier( self ):
-		pass
+	def Copier( self ) -> None:
+		ext = '.txt'
+		timestamp = dt.datetime.now().strftime( "%Y-%m-%d_%H:%M:%S" )
+		new_name = f"{self.getName()}_{timestamp}{ext}"
+
+		if self.__parent_directory.peutAjouter( self.__size ):
+			file = Path( self.getPath() )
+			copy = Path( self.__parent_directory.getPath(), new_name )
+			file.copy( target=copy )
+			self.__parent_directory.adjustSize( self.__size )
