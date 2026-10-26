@@ -25,8 +25,10 @@ class Fichier( Item ):
 		dst:Dossier
 	) -> None:
 		ref_directory = self.__parent_directory
+		self.__parent_directory.adjustSize( size=self.__size, add=False )
 		if dst.peutAjouter( file_size=self.__size ):
 			self.__parent_directory = dst
+			self.__parent_directory.adjustSize( size=self.__size )
 			self.setPath( dst.getPath() )
 			file = Path( self.getPath() )
 			file.move( target=dst.getPath() )
