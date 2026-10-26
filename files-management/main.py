@@ -1,14 +1,14 @@
 import	datetime	as		dt
 from	pathlib		import	Path
-import	Item
-import	Dossier
-import	Fichier
+from	Item		import	Item
+from	Dossier		import	Dossier
+from	Fichier		import	Fichier
 
 # Absolute path to 'TP1'
 DIRECTORY = ''
 #DIRECTORY='/home/user1/Documents/tp1/TP1/TP1'
 
-def getItems() -> list[Item.Item]:
+def getItems() -> list[Item]:
 	dir:Path = None
 	if not DIRECTORY:
 		script_root = Path( __file__ ).parent
@@ -16,12 +16,12 @@ def getItems() -> list[Item.Item]:
 	else:
 		dir = Path( DIRECTORY )
 
-	ListeItem:list[Item.Item] = []
+	ListeItem:list[Item] = []
 	
 	walk = dir.walk()
 	for root,dirs,files in walk:
 		root_path = Path( root )
-		r = Dossier.Dossier(
+		r = Dossier(
 			absolute_path	= root_path.absolute(),
 			creation		= dt.datetime.fromtimestamp(
 				root_path.stat().st_ctime
@@ -32,7 +32,7 @@ def getItems() -> list[Item.Item]:
 
 		for file in files:
 			file_path = Path( root, file )
-			f = Fichier.Fichier(
+			f = Fichier(
 				name				= file_path.name,
 				absolute_path		= file_path.absolute(),
 				creation			= dt.datetime.fromtimestamp(
@@ -45,13 +45,16 @@ def getItems() -> list[Item.Item]:
 			ListeItem.append( f )
 	return ListeItem
 
+def findItem(
+	items:list[Item],
+	name:str,
+	instance_type:type
+) -> Item:
+	print( f"T=={instance_type}" )
+
 def main():
 	ListeItem = getItems()
-	for it in ListeItem:
-		if isinstance( it, Dossier.Dossier ):
-			print( f"DOSSIER --> {it.getName()} :: SIZE --> {it.getSize()}" )
-		elif isinstance( it, Fichier.Fichier ):
-			print( f"FICHIER --> {it.getName()} :: SIZE --> {it.getSize()}" )
+	findItem(ListeItem, "Images", Dossier)
 
 if __name__ == '__main__':
 	main()
