@@ -6,25 +6,38 @@ from	Fichier		import	Fichier
 from	time		import	sleep
 import	argparse	as		ap
 
-# Absolute path to 'TP1'
+# Path to 'TP1'
 DIRECTORY = ''
 
+#-----------------------------------------------------------------[ FUNCTION.S ]
+
 def getItems(
-	args_path:str=None
+	args_path:str=''
 ) -> list[Item]|None:
 	dir:Path = None
 	if args_path:
+		# Provided '--path' arg to 'main.py' program.
 		dir = Path( args_path )
-		print( f"{dir.absolute()} ;: EXISTS=={dir.exists()}" )
 	elif not DIRECTORY:
+		# '__file__' is the script's absolute path
+		# If using Path('TP1/').absolute() uses the working directory.
 		script_root = Path( __file__ ).parent
+		# Relative path from the script.
 		dir = Path( script_root, '../TP1/TP1' )
 	else:
 		dir = Path( DIRECTORY )
 
+	if not dir.exists():
+		raise ValueError( f"invalid directory: '{dir.absolute()}'." )
+
+	# Declaration of en empty 'Item' list.
 	ListeItem:list[Item] = []
-	
+
 	walk = dir.walk()
+
+	# Requested 'for' loop.
+	# Iterates throught every directory and files
+	# Instanticates the corresponding object type: Fichier|Dossier
 	for root,dirs,files in walk:
 		root_path = Path( root )
 		r = Dossier(
@@ -126,6 +139,8 @@ def nCopy(
 		src.Copier()
 		sleep( seconds )
 
+#-----------------------------------------------------------------------[ MAIN ]
+
 def main():
 	parser = ap.ArgumentParser(
 		description="TP1 script: manage files and "
@@ -137,17 +152,21 @@ def main():
 		help="Path to the desired root directory."
 	)
 	args = parser.parse_args()
-	ListeItem = getItems( args.path )
-	'''
-	deplacerMusique( items=ListeItem )
-	deplacerVideo( items=ListeItem )
-	nCopy(
-		src_name	= 'Test3.txt',
-		items		= ListeItem,
-		n			= 10,
-		seconds		= 1
-	)
-	'''
+
+	try:
+		ListeItem = getItems( args.path )
+		'''
+		deplacerMusique( items=ListeItem )
+		deplacerVideo( items=ListeItem )
+		nCopy(
+			src_name	= 'Test3.txt',
+			items		= ListeItem,
+			n			= 10,
+			seconds		= 1
+		)
+		'''
+	except Exception as e:
+		print( f"error: {e}" )
 	
 if __name__ == '__main__':
 	main()
