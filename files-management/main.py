@@ -4,13 +4,19 @@ from	Item		import	Item
 from	Dossier		import	Dossier
 from	Fichier		import	Fichier
 from	time		import	sleep
+import	argparse	as		ap
 
 # Absolute path to 'TP1'
 DIRECTORY = ''
 
-def getItems() -> list[Item]:
+def getItems(
+	args_path:str=None
+) -> list[Item]|None:
 	dir:Path = None
-	if not DIRECTORY:
+	if args_path:
+		dir = Path( args_path )
+		print( f"{dir.absolute()} ;: EXISTS=={dir.exists()}" )
+	elif not DIRECTORY:
 		script_root = Path( __file__ ).parent
 		dir = Path( script_root, '../TP1/TP1' )
 	else:
@@ -121,15 +127,27 @@ def nCopy(
 		sleep( seconds )
 
 def main():
-	ListeItem = getItems()
-	#deplacerMusique( items=ListeItem )
-	#deplacerVideo( items=ListeItem )
+	parser = ap.ArgumentParser(
+		description="TP1 script: manage files and "
+					"directories throught a list of items."
+	)
+	parser.add_argument(
+		'--path','-p',
+		type=str,
+		help="Path to the desired root directory."
+	)
+	args = parser.parse_args()
+	ListeItem = getItems( args.path )
+	'''
+	deplacerMusique( items=ListeItem )
+	deplacerVideo( items=ListeItem )
 	nCopy(
 		src_name	= 'Test3.txt',
 		items		= ListeItem,
 		n			= 10,
 		seconds		= 1
 	)
-
+	'''
+	
 if __name__ == '__main__':
 	main()
