@@ -6,11 +6,11 @@ class Item():
 	def __init__(
 		self,
 		name:str,
-		absolute_path:str,
+		path:str,
 		creation:dt.datetime
 	) -> None:
 		self.__name		= name
-		self.__path		= absolute_path
+		self.__path		= path
 		self.__creation	= creation
 		self.__modified	= creation
 
@@ -25,9 +25,9 @@ class Item():
 
 	def setPath(
 		self,
-		absolute_path:str
+		path:str
 	) -> None:
-		self.__path = absolute_path
+		self.__path = path
 
 	def getPath( self ) -> str:
 		return self.__path

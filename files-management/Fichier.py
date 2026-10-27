@@ -7,15 +7,15 @@ class Fichier( Item ):
 	def __init__(
 		self,
 		name:str,
-		absolute_path:str,
+		path:str,
 		creation:dt.datetime,
 		size:int,
 		parent_directory:Dossier
 	) -> None:
 		super().__init__(
-			name			= name,
-			absolute_path	= absolute_path,
-			creation		= creation
+			name		= name,
+			path		= path,
+			creation	= creation
 		)
 		self.__size				= size
 		self.__parent_directory	= parent_directory

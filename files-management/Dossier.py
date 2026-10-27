@@ -9,14 +9,14 @@ class Dossier( Item ):
 	def __init__(
 		self,
 		name:str,
-		absolute_path:str,
+		path:str,
 		creation:dt.datetime,
 		size_max:int=SIZE_MAX,
 		size:int=0
 	) -> None:
 		super().__init__( 
 			name,
-			absolute_path,
+			path,
 			creation,
 		)
 		self.__size_max	= size_max*1024 # KiloBytes*1024=bytes

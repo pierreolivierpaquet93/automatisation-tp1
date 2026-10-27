@@ -41,11 +41,11 @@ def getItems(
 	for root,dirs,files in walk:
 		root_path = Path( root )
 		r = Dossier(
-			absolute_path	= root_path.parent,
-			creation		= dt.datetime.fromtimestamp(
+			path		= root_path.parent,
+			creation	= dt.datetime.fromtimestamp(
 				root_path.stat().st_ctime
 			),
-			name			= root_path.name
+			name		= root_path.name
 		)
 		ListeItem.append( r )
 
@@ -53,7 +53,7 @@ def getItems(
 			file_path = Path( root, file )
 			f = Fichier(
 				name				= file_path.name,
-				absolute_path		= file_path.parent,
+				path				= file_path.parent,
 				creation			= dt.datetime.fromtimestamp(
 					file_path.stat().st_ctime
 				),
@@ -168,7 +168,6 @@ def main():
 
 	try:
 		ListeItem = getItems( args.path )
-		'''
 		deplacerMusique( items=ListeItem )
 		deplacerVideo( items=ListeItem )
 		nCopy(
@@ -177,7 +176,7 @@ def main():
 			n			= 10,
 			seconds		= 1
 		)
-		'''
+
 	except Exception as e:
 		print( f"error: {e}" )
 	
