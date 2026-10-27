@@ -22,7 +22,7 @@ def getItems() -> list[Item]:
 	for root,dirs,files in walk:
 		root_path = Path( root )
 		r = Dossier(
-			absolute_path	= root_path.absolute(),
+			absolute_path	= root_path.parent,
 			creation		= dt.datetime.fromtimestamp(
 				root_path.stat().st_ctime
 			),
@@ -34,7 +34,7 @@ def getItems() -> list[Item]:
 			file_path = Path( root, file )
 			f = Fichier(
 				name				= file_path.name,
-				absolute_path		= file_path.absolute(),
+				absolute_path		= file_path.parent,
 				creation			= dt.datetime.fromtimestamp(
 					file_path.stat().st_ctime
 				),
@@ -57,8 +57,10 @@ def findItem(
 
 def main():
 	ListeItem = getItems()
-	directory:Dossier = findItem( ListeItem, "Image", Dossier )
-	
+	for it in ListeItem:
+		print( f"PATH=={it.getPath()} :: NAME=={it.getName()}" )
+	#directory:Dossier = findItem( ListeItem, "Image", Dossier )
+	#print( f"{directory.getPath()}" )
 
 if __name__ == '__main__':
 	main()
