@@ -49,12 +49,16 @@ def findItem(
 	items:list[Item],
 	name:str,
 	instance_type:type
-) -> Item:
-	print( f"T=={instance_type}" )
+) -> Item|None:
+	for it in items:
+		if isinstance( it, instance_type ) and it.getName() == name:
+			print( f"{instance_type}=={it.getName()}" )
+			return it
+	return None
 
 def main():
 	ListeItem = getItems()
-	findItem(ListeItem, "Images", Dossier)
+	findItem(ListeItem, "Musique.mp3", Fichier)
 
 if __name__ == '__main__':
 	main()
