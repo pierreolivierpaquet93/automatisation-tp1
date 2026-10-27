@@ -55,12 +55,21 @@ def findItem(
 			return it
 	return None
 
+def findItemsByExtension(
+	items:list[Item],
+	extension:str,
+	instance_type:type
+) -> list[Item]|None:
+	for it in items:
+		path = Path( it.getPath(), it.getName() )
+		if path.suffix == extension and isinstance( it, instance_type ):
+			print( f"FOUND --> {path}" )
+
 def main():
 	ListeItem = getItems()
-	for it in ListeItem:
-		print( f"PATH=={it.getPath()} :: NAME=={it.getName()}" )
-	#directory:Dossier = findItem( ListeItem, "Image", Dossier )
-	#print( f"{directory.getPath()}" )
+	#directory:Dossier = findItem( ListeItem, "Musique", Dossier )
+	#directory.renommer("Image")
+	findItemsByExtension( ListeItem, ".mp3", Fichier )
 
 if __name__ == '__main__':
 	main()
