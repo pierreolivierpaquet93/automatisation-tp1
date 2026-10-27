@@ -52,13 +52,13 @@ def findItem(
 ) -> Item|None:
 	for it in items:
 		if isinstance( it, instance_type ) and it.getName() == name:
-			print( f"{instance_type}=={it.getName()}" )
 			return it
 	return None
 
 def main():
 	ListeItem = getItems()
-	findItem(ListeItem, "Musique.mp3", Fichier)
+	directory:Dossier = findItem( ListeItem, "Image", Dossier )
+	
 
 if __name__ == '__main__':
 	main()
