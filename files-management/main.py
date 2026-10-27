@@ -3,10 +3,10 @@ from	pathlib		import	Path
 from	Item		import	Item
 from	Dossier		import	Dossier
 from	Fichier		import	Fichier
+from	time		import	sleep
 
 # Absolute path to 'TP1'
 DIRECTORY = ''
-#DIRECTORY='/home/user1/Documents/tp1/TP1/TP1'
 
 def getItems() -> list[Item]:
 	dir:Path = None
@@ -67,15 +67,69 @@ def findItemsByExtension(
 			found.append( it )
 	return found
 
-def main():
-	ListeItem = getItems()
-	directory:Dossier = findItem( ListeItem, "Musique", Dossier )
-	directory.renommer("Image")
-	found:list[Fichier] = findItemsByExtension( ListeItem, ".mp3", Fichier )
-	dst = findItem(instance_type=Dossier, items=ListeItem, name="Musique")
+def deplacerMusique(
+	items:list[Item]
+) -> None:
+	directory:Dossier = findItem(
+		items			= items,
+		name			= "Image",
+		instance_type	= Dossier
+	)
+	directory.renommer( "Musique" )
+
+	found:list[Fichier] = findItemsByExtension(
+		items			= items,
+		extension		= ".mp3",
+		instance_type	= Fichier
+	)
+	dst = findItem(
+		items			= items,
+		name			= "Musique",
+		instance_type	= Dossier
+	)
 	for it in found:
 		it.DeplacerDansDossier( dst=dst )
 
+def deplacerVideo(
+	items:list[Item]
+) -> None:
+	dst:Dossier = findItem(
+		items			= items,
+		name			= 'Musique',
+		instance_type	= Dossier
+	)
+	vid:Fichier = findItem(
+		items			= items,
+		name			= 'Vidéo3.mp4',
+		instance_type	= Fichier
+	)
+	vid.DeplacerDansDossier( dst=dst )
+
+def nCopy(
+	src_name:str,
+	items:list[Item],
+	n:int		= 1,
+	seconds:int	= 0
+) -> None:
+	src:Fichier = findItem(
+		name			= src_name,
+		items			= items,
+		instance_type	= Fichier
+	)
+	for i in range(n):
+		src.Copier()
+		sleep( seconds )
+
+def main():
+	ListeItem = getItems()
+	#deplacerMusique( items=ListeItem )
+	#deplacerVideo( items=ListeItem )
+	nCopy(
+		src_name	= 'Test3.txt',
+		items		= ListeItem,
+		n			= 10,
+		seconds		= 1
+	)
 
 if __name__ == '__main__':
 	main()

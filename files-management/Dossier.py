@@ -25,6 +25,9 @@ class Dossier( Item ):
 	def getSize( self ) -> int:
 		return self.__size
 
+	def getSizeMax( self ) -> int:
+		return self.__size_max
+
 	def adjustSize(
 		self,
 		add:bool=True,
