@@ -26,13 +26,14 @@ class Fichier( Item ):
 	) -> None:
 		ref_directory = self.__parent_directory
 		if dst.peutAjouter( file_size=self.__size ):
-			file = Path( self.getPath() )
-			file.move( target=dst.getPath() )
+			file = Path( self.getAbsolutePath() )
+			target = Path(dst.getAbsolutePath(),self.getName())
+			file.move( target=target )
 
 			self.__parent_directory.adjustSize( size=self.__size, add=False )
 			self.__parent_directory = dst
 			self.__parent_directory.adjustSize( size=self.__size )
-			self.setPath( dst.getPath() )
+			self.setPath( dst.getAbsolutePath() )
 
 	def Copier( self ) -> None:
 		ext = '.txt'

@@ -58,18 +58,24 @@ def findItem(
 def findItemsByExtension(
 	items:list[Item],
 	extension:str,
-	instance_type:type
+	instance_type:type=Item
 ) -> list[Item]|None:
+	found:list[Item] = []
 	for it in items:
 		path = Path( it.getPath(), it.getName() )
 		if path.suffix == extension and isinstance( it, instance_type ):
-			print( f"FOUND --> {path}" )
+			found.append( it )
+	return found
 
 def main():
 	ListeItem = getItems()
-	#directory:Dossier = findItem( ListeItem, "Musique", Dossier )
-	#directory.renommer("Image")
-	findItemsByExtension( ListeItem, ".mp3", Fichier )
+	directory:Dossier = findItem( ListeItem, "Musique", Dossier )
+	directory.renommer("Image")
+	found:list[Fichier] = findItemsByExtension( ListeItem, ".mp3", Fichier )
+	dst = findItem(instance_type=Dossier, items=ListeItem, name="Musique")
+	for it in found:
+		it.DeplacerDansDossier( dst=dst )
+
 
 if __name__ == '__main__':
 	main()

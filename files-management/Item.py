@@ -1,5 +1,6 @@
 # https://docs.python.org/3/library/datetime.html
-import datetime as dt
+import	datetime	as		dt
+from	pathlib		import	Path
 
 class Item():
 	def __init__(
@@ -30,6 +31,9 @@ class Item():
 
 	def getPath( self ) -> str:
 		return self.__path
+
+	def getAbsolutePath( self ) -> str:
+		return str( Path( self.__path, self.__name ).absolute() )
 
 	def getCreation( self ) -> dt.datetime:
 		return self.__creation
