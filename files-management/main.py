@@ -30,14 +30,14 @@ def getItems(
 	if not dir.exists():
 		raise ValueError( f"invalid directory: '{dir.absolute()}'." )
 
-	# Declaration of en empty 'Item' list.
+	# TP1: Declaration of en empty 'Item' list.
 	ListeItem:list[Item] = []
 
 	walk = dir.walk()
 
-	# Requested 'for' loop.
-	# Iterates throught every directory and files
-	# Instanticates the corresponding object type: Fichier|Dossier
+	# TP1: Requested 'for' loop.
+	# 	Iterates throught every directory and files.
+	# 	Instanticates the corresponding object type: Fichier|Dossier.
 	for root,dirs,files in walk:
 		root_path = Path( root )
 		r = Dossier(
@@ -64,6 +64,9 @@ def getItems(
 			ListeItem.append( f )
 	return ListeItem
 
+# Retrieves, within the provided Item list, the first occurence of the
+# 	corresponding object.
+# Research is based on the 'name' and 'type' (Fichier|Dossier).
 def findItem(
 	items:list[Item],
 	name:str,
@@ -74,6 +77,8 @@ def findItem(
 			return it
 	return None
 
+# Retrieves, within the provided Item list, all the corresponding objects.
+# Research is based on the extension (suffix) and the 'type' (Fichier|Dossier).
 def findItemsByExtension(
 	items:list[Item],
 	extension:str,
@@ -86,6 +91,9 @@ def findItemsByExtension(
 			found.append( it )
 	return found
 
+# TP1: Locate the 'Image' directory.
+# TP1: Rename the previously located 'Image' directory to 'Musique'.
+# TP1: Move the files (2) ending with ".mp3" to 'Musique'.
 def deplacerMusique(
 	items:list[Item]
 ) -> None:
@@ -109,6 +117,8 @@ def deplacerMusique(
 	for it in found:
 		it.DeplacerDansDossier( dst=dst )
 
+# TP1: Move the video file named 'Vidéo3.mp4' to  'Musique' directory.
+# TP1: An error message should be displayed (exceeding size).
 def deplacerVideo(
 	items:list[Item]
 ) -> None:
@@ -124,6 +134,9 @@ def deplacerVideo(
 	)
 	vid.DeplacerDansDossier( dst=dst )
 
+# TP1: Locate the 'Document' directory.
+# TP1: Make 10 copies of the file named 'Test3.txt'.
+# TP1: Wait 1 second between each copy.
 def nCopy(
 	src_name:str,
 	items:list[Item],
