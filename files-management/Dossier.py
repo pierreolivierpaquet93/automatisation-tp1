@@ -1,6 +1,5 @@
 from	Item		import	Item
 import	datetime	as		dt
-import	os
 from	pathlib		import	Path
 
 SIZE_MAX	= 3000
@@ -11,8 +10,8 @@ class Dossier( Item ):
 		name:str,
 		path:str,
 		creation:dt.datetime,
-		size_max:int=SIZE_MAX,
-		size:int=0
+		size_max:int=SIZE_MAX, # TP1: 'tailleMaximale'
+		size:int=0 # TP1: 'taille'
 	) -> None:
 		super().__init__( 
 			name,
@@ -37,8 +36,11 @@ class Dossier( Item ):
 			self.__size += size
 		else:
 			self.__size -= size
+		self._setModified()
 		return self.__size
 
+	# TP1: Checks if the file size added to the current directory size
+	# 	fits within the established limit (self.__size_max).
 	def peutAjouter(
 		self,
 		file_size:int
@@ -54,5 +56,5 @@ class Dossier( Item ):
 	) -> None:
 		src	= Path( self.getPath(), self.getName() )
 		dst	= Path( self.getPath(), name )
-		src.rename( dst )
-		self.setName( name )
+		src.rename( dst ) # TP1: Modifies the name of the directory on disk.
+		self.setName( name ) # TP1: Modifies the Item 'name' attribute.
